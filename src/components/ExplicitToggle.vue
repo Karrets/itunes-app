@@ -1,4 +1,7 @@
 <script>
+import $ from 'jquery'
+import tooltip from "bootstrap/js/src/tooltip";
+
 export default {
   name: "ExplicitToggle",
 
@@ -9,9 +12,18 @@ export default {
 
   methods: {
     emit(value) {
-      console.log('test')
       this.$emit('update:modelValue', value);
+    },
+
+    buttonAction() {
+      return this.modelValue ? 'Enable Safe-Search' : 'Disable Safe-Search';
     }
+  },
+
+  mounted() {
+    tooltip.getOrCreateInstance($('#safe-search-toggle'), {
+      title: this.buttonAction
+    });
   }
 }
 </script>
@@ -19,14 +31,13 @@ export default {
 <template>
   <div @click="emit(!modelValue)">
     <input :value="modelValue" ref="ss-check" hidden type="checkbox" id="safe-search" name="safe-search" checked>
-    <i v-if="modelValue" class="bi bi-explicit sfw-toggle"></i>
-    <i v-else class="bi bi-explicit-fill sfw-toggle"></i>
+    <button id="safe-search-toggle" type="button" data-bs-toggle="tooltip"
+            :class="{'btn': true, 'btn-outline-secondary': modelValue, 'btn-secondary': !modelValue}">
+      <i v-if="modelValue" class="bi bi-explicit-fill"></i>
+      <i v-else class="bi bi-explicit"></i>
+    </button>
   </div>
 </template>
 
 <style scoped>
-
-.sfw-toggle {
-  font-size: 2rem;
-}
 </style>

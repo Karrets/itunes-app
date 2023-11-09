@@ -1,4 +1,8 @@
-@use 'bootstrap/scss/bootstrap';
-@use 'bootstrap-icons/font/bootstrap-icons';
+@import 'variables';
 
-@use 'variables';
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons';
+
+.input-group-text {
+  background-color: $primary-bg-subtle;
+}
